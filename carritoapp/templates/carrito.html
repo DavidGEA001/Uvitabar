@@ -1,0 +1,47 @@
+{% extends "layouts/layout.html" %}
+
+{%block title%}
+Mi Carrito
+{% endblock %}
+
+{%block content%}
+<table>
+    <thead>
+        <tr>
+            <th><h2>Nombre</h2></th>
+            <th><h2>Precio</h2></th>
+            <th><h2>Cantidad</h2></th>
+        </tr>
+    </thead>
+    {% if request.session.carrito.items %}
+    {% for key, value in request.session.carrito.items %}
+
+    <tr>
+        <td>{{value.title}}</td>
+        <td>{{value.price}}</td>
+        <td>{{value.acumulado}}
+            <a href="{% url 'Add' value.article_id %}" class = "aumentar">+</a>
+            <a href="{% url 'Sub' value.article_id %}" class = "disminuir">-</a>
+        </td>
+    </tr>
+            
+    
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td>Sin Productos</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>Total</th>
+        <td>$ {{total_carrito}}</td>
+    </tr>
+</table>
+<a href="{% url 'Clear' %}" class = "btn">Limpiar</a>
+<a href="{% url 'carrito' %}" class = "btn-agr">Realizar Pago</a>
+
+
+<div class= "clearfix"></div>
+
+{% endblock content %}
+

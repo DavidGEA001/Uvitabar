@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTIPE html>
+<html lang= "es"> 
+<head>
+    <meta charset ="utf8"/>
+    <title class="title">
+        {% block title %}
+        <strong>Error</strong>
+        {% endblock title %} | TBL
+    </title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'css/styles.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    {% comment "" %}
+<header>
+    
+    
+    <div id= "logotipo">
+        {% comment "" %}<img src="{% static "images/logotipo.png" %}" alt="django_logo"/>}
+        <h1>Uvita Bar</h1>
+
+    </div>
+
+    
+    
+</header>
+{% endcomment %}
+<nav>
+    <hr/>
+    <ul>
+        <li>
+            <a href="{% url 'inicio'%}">Inicio</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'list_articles'%}">Productos</a>
+            </li>
+            <li>
+                <a href="{% url 'list_articles'%}">Categorias</a>
+                <ul>
+                    {% for category in categories %}
+                    <li>
+                        <a href="{% url 'category' category.0 %}">{{category.1}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% for page in pages %}
+            <li>
+                <a href="{% url 'pagina' page.2%}">{{page.1}}</a>
+            </li>
+            {% endfor %}
+            <li>
+                <a href="{% url 'logout'%}">Cerrar Sesion</a>
+            </li>
+            <div class= "carrito">
+                <a href="{% url 'carrito'%}"><img src="{% static "images/carrito.png" %}" alt="carrito_logo"></a>
+            </div>
+        {% else %}
+            <li>
+                <a href="{% url 'list_articles'%}">Productos</a>
+            </li>
+            <li>
+                <a href="{% url 'list_articles'%}">Categorias</a>
+                <ul>
+                    {% for category in categories %}
+                    <li>
+                        <a href="{% url 'category' category.0 %}">{{category.1}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+        {% endif %}
+        
+    </ul>
+    <hr/>
+    
+</nav>
+{% comment "" %}
+<div class="barra">
+    <span class= "esquina_izquierda"></span>
+    <span class= "relleno_barra"></span>
+    <span class= "esquina_derecha"></span>
+</div>
+{% endcomment %}
+
+
+<div id="content">
+    <div class="box">
+        {% block content %}
+        <strong>Contenido por defecto</strong>
+        {% endblock content %}
+    </div>
+</div>
+<hr>
+
+<footer>
+    The Beverage Library &copy; - {% now "Y" %}
+</footer>
+
+</body>
+
+</html>

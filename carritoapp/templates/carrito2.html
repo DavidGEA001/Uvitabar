@@ -1,0 +1,54 @@
+{% extends "layouts/layout.html" %}
+
+{%block title%}
+Mi Carrito
+{% endblock %}
+
+{%block content%}
+<h1 class = "title">~ Mi Carrito ~</h1>
+<div class = "container">
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        {% if request.session.carrito.items %}
+        {% for key, value in request.session.carrito.items %}
+        <tbody>
+            <tr>
+                <td>{{value.title}}</td>
+                <td>
+                    <a href="{% url 'Sub' value.article_id %}" class = "disminuir">-</a>
+                    {{value.cantidad}}
+                    <a href="{% url 'Add' value.article_id %}" class = "aumentar">+</a>
+                </td>
+                <td>$ {{value.price}}</td>
+                <td>$ {{value.acumulado}}</td>
+            </tr>    
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>Sin Productos</td>
+        </tr>
+        {% endif %}
+        <tr class= "total">
+            <td>Total</td>
+            <td>-</td>
+            <td>-</td>
+            <td>$ {{total_carrito}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class = "botones-carrito">
+    <a href="{% url 'Clear' %}" class = "btn">Limpiar</a>
+    <a href="{% url 'carrito' %}" class = "btn-agr">Realizar Pago</a>
+</div>
+
+<div class= "clearfix"></div>
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends "layouts/layout.html" %}
+{% load socialaccount %}
+
+{%block title%}
+{{title}}
+{% endblock %}
+
+{%block content%}
+
+<h1>{{title}}</h1>
+<hr>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class= "alert-warning">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+
+{{register_form.errors}}
+
+<div class = "login">
+    <form method= "post" action="">
+        {% csrf_token %}
+    
+        <label for="username">Nombre de Usuario</label>
+        <input type="text" name="username">
+    
+        <label for="password">Contraseña</label>
+        <input type="password" name= "password">
+    
+    
+        <input type="submit" value= "Login">
+        <div class = "ad-register">
+            <p>¿Aun no te has registrado? Registrate 
+                <div class = "aqui">
+                    <a href="{% url 'register' %}">Aqui</a>
+                </div>
+            </p>
+        </div>
+        <div class = "session-google">
+            <a href="{% provider_login_url 'google' %}?next=/">Iniciar sesion con Google</a>
+        </div>
+        
+    </form>
+    
+</div>
+
+
+{% endblock %}

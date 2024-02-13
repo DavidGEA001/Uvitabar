@@ -1,0 +1,73 @@
+{% extends "layouts/layout.html" %}
+
+{%block title%}
+{{title}}
+{% endblock %}
+
+{%block content%}
+
+{% comment "" %}
+
+<h1>{{title}}</h1>
+<hr/>
+{% endcomment %}
+
+
+{% if messages %}
+    {% for message in messages %}
+        <div class= "alert-success">
+            {{message}}
+        </div>
+    {% endfor %}
+
+{% endif %}
+
+{% if user.is_authenticated %}
+
+<div class = "mensaje-inicial">
+    <p>Bienvenido, haz iniciado session con el correo electronico {{user.email}}</p>
+</div>
+
+{% endif %}
+
+
+<div class="titulo-index">
+    <h2 class = "border">Uvita Bar</h2>
+    <h2 class = "wave">Uvita Bar</h2>
+
+</div>
+
+<div class = "articulos-index">
+    <h2>Productos Destacados</h2>
+    <section>
+        {% for article in articles %}
+        {% if article.image != "null" and article.image.url|length >= 1 %}
+        <img src="{{article.image.url}}" alt = "{{article.id}}"/>
+        {% endif %}
+        {% endfor %}
+    </section>
+</div>
+
+
+<div class= "clearfix"></div>
+
+{% comment "" %}
+
+
+<div class="carrusel-box">
+    <i class = "fa-solid fa-angle-left"></i>
+    <div class="carrusel">
+        {% for article in articles %}
+        {% if article.image != "null" and article.image.url|length >= 1 %}
+        <img src="{{article.image.url}}" alt = "{{article.id}}"/>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <i class = "fa-solid fa-angle-right"></i>
+</div>
+
+
+{% endcomment %}
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "layouts/layout.html" %}
+
+{%block title%}
+{{article.title}}
+{% endblock %}
+
+{%block content%}
+
+    
+    {% if article.image != "null" and article.image.url|length >= 1 %}
+
+        <div class= "img-detail">
+            <img src="{{article.image.url}}"/>
+        </div>
+    {% endif %}
+
+    <h1 class = "title-detail">{{article.title}}</h1>
+
+    <p class = "description-detail">{{article.description|safe}}</p>
+
+    <p class = "categoria-detail">
+        {% for category in article.categories.all %}
+            <a href={% url 'category' category.id%}>-{{category.name}}-</a>
+
+            {% if forloop.counter < article.categories.all|length %}
+                {{"-"}}
+            {% endif %}
+        {% endfor %}
+    </p>
+
+    <div class = "Precio-detail">
+        ${{article.price}}
+    </div>
+
+    <div class = "presentacion">
+        {{article.presentation}}
+    </div>
+
+    <div class = "botones-detail">
+        <a href= "#" class = "btn">
+            Favorito
+        </a>
+        <a href= "{% url "Add" article.id %}" class = "btn-agr">
+            Agregar al Carrito
+        </a>
+    </div>
+    
+    <div class = "contenido-detail">
+        {{article.content|safe}}
+    </div>
+
+{% endblock %}

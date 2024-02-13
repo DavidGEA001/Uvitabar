@@ -1,0 +1,26 @@
+<div class = "pagination">
+    {% if articles.has_previous %}
+    <div class = "primero">
+        <a href="?page=1">&laquo;  Primero  </a>
+    </div>
+    <div class = "anterior">
+        <a href="?page={{articles.previous_page_number}}">
+            Anterior 
+       </a>
+    </div>
+    {% endif %}
+    <span class = 'actual'>
+        Pagina {{articles.number}} de {{articles.paginator.num_pages}}  
+    </span>
+    {% if articles.has_next %}
+    <div class = "siguiente">
+        <a href="?page={{articles.next_page_number}}">
+            Siguiente  
+      </a>
+    </div>
+    <div class = "ultima">
+        <a href="?page={{articles.paginator.num_pages}}">  Ultima &raquo;  </a>
+    </div>
+    {% endif %}
+
+</div>

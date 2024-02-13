@@ -1,0 +1,41 @@
+<div class = "cards">
+    {% for article in articles %}
+    <div class= "producto">
+        {% if article.image != "null" and article.image.url|length >= 1 %}
+
+            <div class= "imagen">
+                <img src="{{article.image.url}}"/>
+            </div>
+        {% endif %}
+            <div class= "info">
+                <h2>
+                    <a href="{% url 'article' article.id %}">{{article.title}}</a>
+                </h2>
+                <p>
+                    {% for category in article.categories.all %}
+                        <a href={% url 'category' category.id%}>-{{category.name}}-</a>
+
+                        {% if forloop.counter < article.categories.all|length %}
+                            {{"-"}}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                <div class = "Precio">
+                    ${{article.price}}
+                </div>
+                <p>
+                    {{article.description|safe}} <br>
+                </p>
+                <a href= "#" class = "btn">
+                    Favorito
+                </a>
+                <a href= "{% url "Add" article.id %}" class = "btn-agr">
+                    Agregar al Carrito
+                </a>
+            </div>
+        <br>
+        </div>
+    {% endfor %}
+</div>
+    <div class= "clearfix"></div>
+    
